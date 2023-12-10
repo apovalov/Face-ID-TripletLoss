@@ -66,13 +66,13 @@ Intuitively, it can be described by two principles:
 
 ## Contrastive loss: Numpy
 
-We take a pair of faces from our dataset and get their embeddings $$\( x_1 \)$$ and $$\( x_2 \)$$, then $$\( D(x_1, x_2) \)$$ is the distance between points in space.
+We take a pair of faces from our dataset and get their embeddings x1 and x2, then D(x1, x2) is the distance between points in space.
 
-Embeddings of images of the same person (\( y = 1 \)) should be brought closer, and embeddings of different people (\( y = 0 \)) should be repelled.
+Embeddings of images of the same person y = 1 should be brought closer, and embeddings of different people y = 0 should be repelled.
 
 Contrastive loss is defined by the following formula:
 
-\[ L = y * D(x_1, x_2)^2 + (1 - y) * \max(\text{margin} - D(x_1, x_2), 0)^2 \]
+$$\[ L = y * D(x_1, x_2)^2 + (1 - y) * \max(\text{margin} - D(x_1, x_2), 0)^2 \]$$
 
 
 ![Alt text](image-2.png)
