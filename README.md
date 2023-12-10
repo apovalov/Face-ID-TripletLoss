@@ -72,7 +72,7 @@ Embeddings of images of the same person y = 1 should be brought closer, and embe
 
 Contrastive loss is defined by the following formula:
 
-$$\[ L = y * D(x_1, x_2)^2 + (1 - y) * \max(\text{margin} - D(x_1, x_2), 0)^2 \]$$
+$$L = y * D(x_1, x_2)^2 + (1 - y) * \max(\text{margin} - D(x_1, x_2), 0)^2$$
 
 
 ![Alt text](image-2.png)
