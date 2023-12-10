@@ -37,7 +37,7 @@ The Metric Learning task reduces to obtaining a model F that maps faces into a d
 The points in the resulting space are called embeddings, and the model F is an encoder that can be used to obtain embeddings.
 An encoder is usually a component of a neural network that compresses raw data into smaller embeddings.
 
-![Alt text](image.png)
+![Alt text](/img/image.png)
 
 Embedding space transformation in the Metric Learning task. After training the model, similar objects are grouped into clusters.
 
@@ -61,7 +61,7 @@ Intuitively, it can be described by two principles:
 1. Minimize the distances between a pair of objects of the same class (one person).
 2. Maximize the distances between a pair of objects of different classes (two different people).
 
-![Alt text](image-1.png)
+![Alt text](/img/image-1.png)
 
 
 ## Contrastive loss: Numpy
@@ -75,11 +75,41 @@ Contrastive loss is defined by the following formula:
 $$L = y * D(x_1, x_2)^2 + (1 - y) * \max(\text{margin} - D(x_1, x_2), 0)^2$$
 
 
-![Alt text](image-2.png)
-
+![Alt text](/img/image-2.png)
 
 
 The pros of this approach are simple generation of pairs of objects (mining). But it has a large number of disadvantages:
 
-The quality of learning can strongly depend on the margin hyperparameter and the distance metric D(x1, x2). Requires a large size dataset.
-Data quality and outliers can greatly affect model training.
+1. The quality of learning can strongly depend on the margin hyperparameter and the distance metric D(x1, x2).
+2. Requires a large size dataset.
+3. Data quality and outliers can greatly affect model training.
+
+
+## Triplet loss: Numpy
+# What if we now take two identical faces and another one, but of a different person?
+
+Research results and practice confirm that such an approach provides better class separability than the classic **contrastive loss**.
+
+**Triplet loss** is defined by the following formula:
+
+$$L = \max(0, D(a, p) - D(a, n) + \text{margin})$$
+
+
+Where triplet `(a, p, n)` is a set of embeddings for each frame:
+
+1. **Anchor** - frame `A` with the face of person `y1`.
+2. **Positive** - frame `P` with the face of the same person as in `A` (`y1`).
+3. **Negative** - frame `N` with another person in the picture (`y2`).
+
+
+![Alt text](/img/image-3.png)
+
+A clear illustration, with the margin zone marked on the right.
+
+Note that it is quite easy to classify triplets:
+
+Easy Triplets - the metric is 0 and Negative is farther away than Positive + margin zone.
+Semi-Hard Triplets - Negative is farther away than Positive, but not farther away than the margin zone.
+
+
+ Hard Triplets - Negative is closer to Anchor than Positive.
